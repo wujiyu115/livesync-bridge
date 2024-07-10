@@ -1,4 +1,4 @@
-import { DirectFileManipulatorOptions } from "./lib/src/DirectFileManipulator.ts";
+import type { DirectFileManipulatorOptions } from "./lib/src/API/DirectFileManipulator.ts";
 
 export interface Config {
     peers: PeerConf[];
@@ -16,9 +16,11 @@ export interface PeerStorageConf {
         cmd: string,
         args: string[]
     }
+    useChokidar?: boolean;
 }
 export interface PeerCouchDBConf extends DirectFileManipulatorOptions {
     type: "couchdb";
+    useRemoteTweaks?: true;
     group?: string;
     name: string;
     database: string;
@@ -31,6 +33,9 @@ export interface PeerCouchDBConf extends DirectFileManipulatorOptions {
     obfuscatePassphrase: string;
     baseDir: string;
 }
+
+
+
 export function isCouchDBPeer(peer: PeerConf): peer is PeerCouchDBConf {
     return peer.type == "couchdb";
 }
